@@ -1,15 +1,21 @@
 import * as React from "react";
 import type { NextPage } from "next";
 import styles from "./index.module.scss";
+import NotConnected from "../../organisms/NotConnected";
 
-export const Dashboard: NextPage = () => {
+type Props = {
+  wallet: string | undefined;
+  connectWallet: () => void;
+};
+
+export const Dashboard: React.FC<Props> = (props) => {
   return (
     <div className={styles["content"]}>
-      <div>
-        <div className={styles["title"]}>SUBSCRYPTO</div>
-        <div className={styles["subtitle"]}>Web3 subscription</div>
-        <div className={styles["button"]}>Connect Wallet</div>
-      </div>
+      {props.wallet ? (
+        <div>connected</div>
+      ) : (
+        <NotConnected connectWallet={props.connectWallet} />
+      )}
     </div>
   );
 };

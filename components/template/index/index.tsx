@@ -25,7 +25,7 @@ export const Home: React.FC<Props> = (props) => {
         </div>
       </div>
       <div className={styles["content-right"]}>
-        <Image src="/img/phone.png" width="367" height="446" />
+        <Image src="/img/phone.png" width="327" height="400" />
       </div>
     </div>
   );
