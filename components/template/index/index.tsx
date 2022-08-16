@@ -2,7 +2,9 @@ import * as React from "react";
 import styles from "./index.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-type Props = {};
+type Props = {
+  connectWallet: () => void;
+};
 
 export const Home: React.FC<Props> = (props) => {
   return (
@@ -17,7 +19,9 @@ export const Home: React.FC<Props> = (props) => {
           <Link href="/dashboard">
             <div className={styles["button-secondary"]}>Launch App</div>
           </Link>
-          <div className={styles["button"]}>Connect Wallet</div>
+          <div className={styles["button"]} onClick={props.connectWallet}>
+            Connect Wallet
+          </div>
         </div>
       </div>
       <div className={styles["content-right"]}>
