@@ -29,11 +29,25 @@
 }
 
 .button {
+  width: 180px;
+  text-align: center;
   margin-left: 40px;
   display: inline-block;
   padding: 16px;
   border: 2px solid #77fba2;
   color: #77fba2;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button-secondary {
+  width: 180px;
+  text-align: center;
+  display: inline-block;
+  padding: 16px;
+  color: #333333;
+  background-color: #77fba2;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;

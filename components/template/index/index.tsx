@@ -1,6 +1,7 @@
 import * as React from "react";
 import styles from "./index.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 type Props = {};
 
 export const Home: React.FC<Props> = (props) => {
@@ -13,7 +14,9 @@ export const Home: React.FC<Props> = (props) => {
           The next generation of decentralized Crypto Subscryption Protocol.
         </div>
         <div className={styles["button-wrap"]}>
-          <div className={styles["button"]}>Launch App</div>
+          <Link href="/dashboard">
+            <div className={styles["button-secondary"]}>Launch App</div>
+          </Link>
           <div className={styles["button"]}>Connect Wallet</div>
         </div>
       </div>
