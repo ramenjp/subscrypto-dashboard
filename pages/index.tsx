@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { NextPage } from "next";
-import { Home as HomeTemplate } from "../components/template";
+import { Home as HomeTemplate } from "../components/template/index";
 import { ethers } from "ethers";
 import keccak256 from "keccak256";
 import abi from "../config/abi.json";

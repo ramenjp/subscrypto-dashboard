@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ethers } from "ethers";
+import Header from "../components/organisms/header";
 
 declare global {
   interface Window {
@@ -9,7 +10,12 @@ declare global {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Header />
+      <Component {...pageProps} />;
+    </>
+  );
 }
 
 export default MyApp;

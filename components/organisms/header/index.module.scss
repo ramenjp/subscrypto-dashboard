@@ -1,0 +1,32 @@
+.content {
+  justify-content: space-between;
+  display: flex;
+  &__right {
+    display: flex;
+  }
+  &__list {
+    color: white;
+    display: flex;
+    list-style-type: none;
+  }
+  &__list-item {
+    cursor: pointer;
+    margin-left: 40px;
+  }
+}
+
+.title {
+  color: #77fba2;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.button {
+  margin-left: 40px;
+  padding: 16px;
+  border: 2px solid #77fba2;
+  color: #77fba2;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
