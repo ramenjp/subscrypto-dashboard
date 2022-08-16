@@ -14,8 +14,8 @@ declare global {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  console.log("router :", router);
   const [pathName, setPathName] = React.useState<string>();
+
   useEffect(() => {
     setPathName(router.pathname);
   }, [router.pathname]);

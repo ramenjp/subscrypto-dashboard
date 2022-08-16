@@ -1,14 +1,37 @@
 .content {
-  padding: 80px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  &__wrap {
+    display: flex;
+    justify-content: flex-start;
+  }
+  &__left {
+    height: 100vh;
+    width: 260px;
+    padding: 60px;
+    padding-left: 0;
+    border-right: 1px solid #a0ccaa;
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+    &-list {
+      list-style: none;
+    }
+    &-item {
+      cursor: pointer;
+      & + & {
+        margin-top: 24px;
+      }
+    }
+  }
+  &__right {
+    width: 100%;
+    padding: 60px;
+    margin-top: 20px;
+  }
 }
 
 .title {
-  color: #77fba2;
-  text-align: center;
-  font-size: 64px;
+  color: white;
+  font-size: 24px;
   font-weight: bold;
 }
 
@@ -31,4 +54,19 @@
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.box {
+  width: 100%;
+  background: #5c5a5a;
+  padding: 32px;
+  border-radius: 20px;
+  &__text {
+    color: white;
+    line-height: 24px;
+  }
+  &__button {
+    margin-top: 60px;
+    width: 160px;
+  }
 }

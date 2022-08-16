@@ -1,13 +1,21 @@
 import * as React from "react";
 import styles from "./index.module.scss";
 import Link from "next/link";
+import { ethers } from "ethers";
 
 type Props = {
-  pathName: string;
+  pathName: string | undefined;
   connectWallet?: () => void;
 };
 
 export const Header: React.FC<Props> = (props) => {
+  const [isSigner, setIsSigner] = React.useState<boolean>(false);
+  React.useEffect(() => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    setIsSigner(!!signer);
+  }, []);
+
   return (
     <div className={styles["content"]}>
       <div className={styles["title"]}>SUBCRYPTO</div>
@@ -32,9 +40,11 @@ export const Header: React.FC<Props> = (props) => {
             </li>
           </Link>
         </ul>
-        <div className={styles["button"]} onClick={props.connectWallet}>
-          Connect wallet
-        </div>
+        {isSigner ? null : (
+          <div className={styles["button"]} onClick={props.connectWallet}>
+            Connect wallet
+          </div>
+        )}
       </div>
     </div>
   );

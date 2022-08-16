@@ -1,6 +1,8 @@
 .content {
   justify-content: space-between;
   display: flex;
+  padding: 40px 60px;
+  border-bottom: 1px solid #a0ccaa;
   &__right {
     display: flex;
   }
