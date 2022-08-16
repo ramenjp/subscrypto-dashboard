@@ -9,7 +9,6 @@ export const Home: React.FC<Props> = (props) => {
       <div className={styles["content-left"]}>
         <div className={styles["title"]}>SUBSCRYPTO</div>;
         <div className={styles["subtitle"]}>Never let your customer bored.</div>
-        ;
         <div className={styles["description"]}>
           The next generation of decentralized Crypto Subscryption Protocol.
         </div>
