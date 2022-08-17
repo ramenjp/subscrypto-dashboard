@@ -33,7 +33,6 @@ const Dashboard: NextPage = () => {
     (async () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
-      console.log("provider2 :", provider);
       const signer = provider.getSigner();
       const wallet = await signer.getAddress();
       if (wallet) {
@@ -43,18 +42,24 @@ const Dashboard: NextPage = () => {
   });
 
   const getValue = (formik: any, name: keyof Subscription) => {
-    return formik.values[name];
+    console.log("click", formik.values.tokenAddress);
+    return {
+      value: formik.values[name],
+      error: formik.errors[name],
+    };
   };
 
   const tokenAddress = React.useMemo(() => {
     return getValue(formik, "tokenAddress");
-  }, []);
+  }, [formik.values.tokenAddress]);
+
   const price = React.useMemo(() => {
     return getValue(formik, "price");
-  }, []);
+  }, [formik.values.price]);
+
   const interval = React.useMemo(() => {
     return getValue(formik, "interval");
-  }, []);
+  }, [formik.values.interval]);
 
   const connectWallet = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -65,11 +70,13 @@ const Dashboard: NextPage = () => {
 
   return (
     <DashboardTemplate
-      connectWallet={connectWallet}
       wallet={wallet}
       tokenAddress={tokenAddress}
       price={price}
       interval={interval}
+      connectWallet={connectWallet}
+      handleSubmit={formik.handleSubmit}
+      handleChange={formik.handleChange}
     />
   );
 };

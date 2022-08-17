@@ -3,7 +3,7 @@ import Button from "../../atoms/button";
 
 type Props = {
   setProgress: (progressNum: number) => void;
-  createSubcrtiption?: () => void;
+  handleSubmit: (e: HTMLElement) => void;
 };
 
 export const ReceiveAddress: React.FC<Props> = (props) => {
@@ -22,7 +22,7 @@ export const ReceiveAddress: React.FC<Props> = (props) => {
         <Button
           text="Confirm"
           color="secondary"
-          onClick={() => props?.createSubcrtiption}
+          onClick={() => props.handleSubmit}
         />
       </div>
     </div>

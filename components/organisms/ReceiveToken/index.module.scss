@@ -3,6 +3,36 @@
   line-height: 24px;
 }
 
+.token {
+  max-width: 800px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  &__box {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 16px;
+    background-color: #ffffff;
+    width: 148px;
+    height: 179px;
+    filter: drop-shadow(10px 10px 0px rgba(0, 0, 0, 0.25));
+    cursor: pointer;
+    &:hover {
+      transition: 0.2s;
+      background-color: #d9d9d9;
+    }
+    input {
+      display: none;
+    }
+  }
+  &__name {
+    font-weight: bold;
+  }
+}
+
 .button {
   margin-top: 60px;
   width: 160px;

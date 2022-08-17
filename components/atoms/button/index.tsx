@@ -3,7 +3,7 @@ import styles from "./index.module.scss";
 
 type Props = {
   text: string;
-  color?: "primary" | "secondary";
+  color?: "primary" | "secondary" | "dark";
 
   onClick?: () => void;
 };

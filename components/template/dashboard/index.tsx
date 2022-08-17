@@ -9,12 +9,19 @@ import { Period } from "../../organisms/Period";
 import { Amount } from "../../organisms/Amount";
 import { ReceiveAddress } from "../../organisms/ReceiveAddress";
 
+type Field<T> = {
+  value: T;
+  error: boolean;
+};
+
 type Props = {
   wallet: string | undefined;
-  tokenAddress: string;
-  price: number;
-  interval: number;
+  tokenAddress: Field<string>;
+  price: Field<number>;
+  interval: Field<number>;
 
+  handleSubmit: (e: any) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   connectWallet: () => void;
 };
 
@@ -77,13 +84,20 @@ export const Dashboard: React.FC<Props> = (props) => {
             </div>
             <div className={styles["box"]}>
               {progress == 1 ? (
-                <ReceiveToken setProgress={setProgress} />
+                <ReceiveToken
+                  tokenAddress={props.tokenAddress}
+                  setProgress={setProgress}
+                  handleChange={props.handleChange}
+                />
               ) : progress == 2 ? (
                 <Period setProgress={setProgress} />
               ) : progress == 3 ? (
                 <Amount setProgress={setProgress} />
               ) : progress == 4 ? (
-                <ReceiveAddress setProgress={setProgress} />
+                <ReceiveAddress
+                  setProgress={setProgress}
+                  handleSubmit={props.handleSubmit}
+                />
               ) : null}
             </div>
           </div>
