@@ -4,9 +4,17 @@ import styles from "./index.module.scss";
 import NotConnected from "../../organisms/NotConnected";
 import Button from "../../atoms/button";
 import Link from "next/link";
+import { ReceiveToken } from "../../organisms/ReceiveToken";
+import { Period } from "../../organisms/Period";
+import { Amount } from "../../organisms/Amount";
+import { ReceiveAddress } from "../../organisms/ReceiveAddress";
 
 type Props = {
   wallet: string | undefined;
+  tokenAddress: string;
+  price: number;
+  interval: number;
+
   connectWallet: () => void;
 };
 
@@ -68,13 +76,15 @@ export const Dashboard: React.FC<Props> = (props) => {
               </div>
             </div>
             <div className={styles["box"]}>
-              <div className={styles["box__text"]}>
-                Please select the cryptocurrency you wish to receive. You may
-              </div>
-              <div className={styles["box__text"]}>select more than one.</div>
-              <div className={styles["box__button"]}>
-                <Button text="Confirm" color="primary"></Button>
-              </div>
+              {progress == 1 ? (
+                <ReceiveToken setProgress={setProgress} />
+              ) : progress == 2 ? (
+                <Period setProgress={setProgress} />
+              ) : progress == 3 ? (
+                <Amount setProgress={setProgress} />
+              ) : progress == 4 ? (
+                <ReceiveAddress setProgress={setProgress} />
+              ) : null}
             </div>
           </div>
         </div>
