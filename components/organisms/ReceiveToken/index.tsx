@@ -34,7 +34,7 @@ export const ReceiveToken: React.FC<Props> = (props) => {
                 "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
               }
             />
-            <Image src="/img/BUSD.jpg" width="82" height="82" />
+            <Image src="/img/BUSD.png" width="82" height="82" />
             <p className={styles["token__name"]}>BUSD</p>
           </div>
         </label>
@@ -52,7 +52,7 @@ export const ReceiveToken: React.FC<Props> = (props) => {
                 "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
               }
             />
-            <Image src="/img/USDC.jpg" width="82" height="82" />
+            <Image src="/img/USDC.png" width="82" height="82" />
             <p className={styles["token__name"]}>USDC</p>
           </div>
         </label>
@@ -67,7 +67,7 @@ export const ReceiveToken: React.FC<Props> = (props) => {
               onChange={props.handleChange}
               checked={props.tokenAddress.value === "USDT"}
             />
-            <Image src="/img/USDT.jpg" width="82" height="82" />
+            <Image src="/img/USDT.png" width="82" height="82" />
             <p className={styles["token__name"]}>USDT</p>
           </div>
         </label>
@@ -82,13 +82,13 @@ export const ReceiveToken: React.FC<Props> = (props) => {
               onChange={props.handleChange}
               checked={props.tokenAddress.value === "DAI"}
             />
-            <Image src="/img/DAI.jpg" width="82" height="82" />
+            <Image src="/img/DAI.png" width="82" height="82" />
             <p className={styles["token__name"]}>DAI</p>
           </div>
         </label>
       </div>
       <div className={styles["button"]} onClick={() => props.setProgress(2)}>
-        <Button text="Next" color="dark" />
+        <Button text="Next" color="secondary" />
       </div>
     </div>
   );

@@ -44,16 +44,20 @@ export const Period: React.FC<Props> = (props) => {
       </div>
 
       <div className={styles["button-wrapper"]}>
-        <Button
-          text="Back"
-          color="primary"
-          onClick={() => props.setProgress(1)}
-        />
-        <Button
-          text="Next"
-          color="secondary"
-          onClick={() => props.setProgress(3)}
-        />
+        <div className={styles["button"]}>
+          <Button
+            text="Back"
+            color="dark"
+            onClick={() => props.setProgress(1)}
+          />
+        </div>
+        <div className={styles["button"]}>
+          <Button
+            text="Next"
+            color="secondary"
+            onClick={() => props.setProgress(3)}
+          />
+        </div>
       </div>
     </div>
   );

@@ -24,3 +24,10 @@
     outline: none;
   }
 }
+
+.button {
+  width: 240px;
+  & + & {
+    margin-left: 16px;
+  }
+}

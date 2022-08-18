@@ -26,9 +26,18 @@
     outline: none;
   }
   &__ticker {
-    color: white;
+    border-radius: 6px;
+    padding: 8px;
+    background-color: white;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 20px;
     margin-left: 12px;
+  }
+}
+
+.button {
+  width: 240px;
+  & + & {
+    margin-left: 16px;
   }
 }
