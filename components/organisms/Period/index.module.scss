@@ -7,3 +7,37 @@
   margin-top: 60px;
   display: flex;
 }
+
+.range-content {
+  width: 720px;
+  background: #d9d9d9;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px;
+  margin-top: 40px;
+  &__title {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 24px;
+  }
+  &__range {
+    border-radius: 6px;
+    margin-top: 36px;
+    -webkit-appearance: none; /* 🚩これ無しだとスタイルがほぼ全く反映されないので注意 */
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    height: 16px;
+    width: 100%;
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background: #333333;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+}

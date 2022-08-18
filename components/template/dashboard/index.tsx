@@ -16,6 +16,7 @@ type Field<T> = {
 
 type Props = {
   wallet: string | undefined;
+  tokenReceiveAddress: Field<string>;
   tokenAddress: Field<string>;
   price: Field<number>;
   interval: Field<number>;
@@ -90,12 +91,22 @@ export const Dashboard: React.FC<Props> = (props) => {
                   handleChange={props.handleChange}
                 />
               ) : progress == 2 ? (
-                <Period setProgress={setProgress} />
+                <Period
+                  interval={props.interval}
+                  setProgress={setProgress}
+                  handleChange={props.handleChange}
+                />
               ) : progress == 3 ? (
-                <Amount setProgress={setProgress} />
+                <Amount
+                  tokenAddress={props.tokenAddress}
+                  setProgress={setProgress}
+                  handleChange={props.handleChange}
+                />
               ) : progress == 4 ? (
                 <ReceiveAddress
+                  tokenReceiveAddress={props.tokenReceiveAddress}
                   setProgress={setProgress}
+                  handleChange={props.handleChange}
                   handleSubmit={props.handleSubmit}
                 />
               ) : null}

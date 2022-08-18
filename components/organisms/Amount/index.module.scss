@@ -7,3 +7,28 @@
   margin-top: 60px;
   display: flex;
 }
+
+.address-input {
+  margin-top: 16px;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  > input {
+    border-radius: 6px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.75px;
+    padding: 8px;
+    border: none;
+  }
+  :focus {
+    outline: none;
+  }
+  &__ticker {
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    margin-left: 12px;
+  }
+}

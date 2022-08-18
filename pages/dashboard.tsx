@@ -11,6 +11,7 @@ const initialValues: Subscription = {
   tokenAddress: "",
   price: 0,
   interval: 0,
+  walletAddress: "",
 };
 
 const Dashboard: NextPage = () => {
@@ -61,6 +62,10 @@ const Dashboard: NextPage = () => {
     return getValue(formik, "interval");
   }, [formik.values.interval]);
 
+  const walletAddress = React.useMemo(() => {
+    return getValue(formik, "walletAddress");
+  }, [formik.values.walletAddress]);
+
   const connectWallet = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
@@ -71,6 +76,7 @@ const Dashboard: NextPage = () => {
   return (
     <DashboardTemplate
       wallet={wallet}
+      tokenReceiveAddress={walletAddress}
       tokenAddress={tokenAddress}
       price={price}
       interval={interval}
