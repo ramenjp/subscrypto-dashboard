@@ -35,10 +35,10 @@ export const Period: React.FC<Props> = (props) => {
         <input
           name="interval"
           type="range"
+          step="50"
           min="0"
           max="100"
           className={styles["range-content__range"]}
-          step="50"
           onChange={props.handleChange}
         />
       </div>

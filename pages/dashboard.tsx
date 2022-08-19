@@ -6,6 +6,8 @@ import * as Formik from "formik";
 import { Subscription } from "../application/subscription";
 import { contractAddress } from "../config";
 import * as Yup from "yup";
+import * as Biconomy from "@biconomy/mexa";
+import * as config from "../application/subscription";
 
 const initialValues: Subscription = {
   tokenAddress: "",
@@ -71,6 +73,26 @@ const Dashboard: NextPage = () => {
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const walletAddress = await signer.getAddress();
+  };
+
+  const biconomy = new Biconomy.Biconomy(
+    window.ethereum as config.ExternalProvider,
+    {
+      apiKey: process.env["BICONOMY_API_KEY"] ?? "",
+      debug: true,
+      contractAddresses: ["0x5fbdb2315678afecb367f032d93f642f64180aa3"],
+    }
+  );
+
+  const contractInstance = new ethers.Contract(
+    config.address,
+    config.abi,
+    biconomy.ethersProvider
+  );
+
+  const startSubscription = async () => {
+    await biconomy.init();
+    contractInstance.createFoundation();
   };
 
   return (
