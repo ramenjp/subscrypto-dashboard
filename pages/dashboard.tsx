@@ -21,7 +21,12 @@ const Dashboard: NextPage = () => {
   const formik = Formik.useFormik<Subscription>({
     initialValues,
     onSubmit: async (values) => {
-      // contractAddress.createSubscription(value);
+      await biconomy.init();
+      contractInstance.createFoundation(
+        values.tokenAddress,
+        values.price,
+        values.interval
+      );
     },
     validationSchema: () => {
       return Yup.object().shape({
@@ -90,10 +95,7 @@ const Dashboard: NextPage = () => {
     biconomy.ethersProvider
   );
 
-  const startSubscription = async () => {
-    await biconomy.init();
-    contractInstance.createFoundation();
-  };
+  const startSubscription = async () => {};
 
   return (
     <DashboardTemplate
