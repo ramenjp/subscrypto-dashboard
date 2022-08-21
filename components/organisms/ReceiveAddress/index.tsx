@@ -10,7 +10,7 @@ type Props = {
   tokenReceiveAddress: Field<string>;
   setProgress: (progressNum: number) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (e: HTMLElement) => void;
+  handleSubmit: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const ReceiveAddress: React.FC<Props> = (props) => {

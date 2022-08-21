@@ -4,9 +4,8 @@ import { Dashboard as DashboardTemplate } from "../components/template/dashboard
 import { ethers } from "ethers";
 import * as Formik from "formik";
 import { Subscription } from "../application/subscription";
-import { contractAddress } from "../config";
 import * as Yup from "yup";
-import * as Biconomy from "@biconomy/mexa";
+import { Biconomy } from "@biconomy/mexa";
 import * as subscriptionDomain from "../application/subscription";
 
 const initialValues: Subscription = {
@@ -18,28 +17,17 @@ const initialValues: Subscription = {
 
 const biconomyFowarder = "0xfd4973feb2031d4409fb57afee5df2051b171104";
 
-const biconomy = new Biconomy.Biconomy(
-  window.ethereum as subscriptionDomain.ExternalProvider,
-  {
-    apiKey: process.env["BICONOMY_API_KEY"] ?? "",
-    debug: true,
-    contractAddresses: ["0x5fbdb2315678afecb367f032d93f642f64180aa3"],
-  }
-);
-
-const contractInstance = new ethers.Contract(
-  subscriptionDomain.address,
-  subscriptionDomain.abi,
-  biconomy.ethersProvider
-);
-
 const Dashboard: NextPage = () => {
   const [wallet, setWallet] = React.useState<string>();
+  const [biconomy, setBiconomy] = React.useState<Biconomy>();
+  const [contract, setContract] = React.useState<ethers.Contract>();
+
   const formik = Formik.useFormik<Subscription>({
     initialValues,
     onSubmit: async (values) => {
-      await biconomy.init();
-      contractInstance.createFoundation(
+      await biconomy?.init();
+      console.log("onSubmit");
+      contract?.createFoundation(
         values.tokenAddress,
         values.price,
         values.interval,
@@ -64,11 +52,26 @@ const Dashboard: NextPage = () => {
       if (wallet) {
         setWallet(wallet);
       }
+      const biconomy = new Biconomy(
+        window.ethereum as subscriptionDomain.ExternalProvider,
+        {
+          apiKey: process.env["BICONOMY_API_KEY"] ?? "",
+          debug: true,
+          contractAddresses: ["0x5fbdb2315678afecb367f032d93f642f64180aa3"],
+        }
+      );
+      setBiconomy(biconomy);
+
+      const contractInstance = new ethers.Contract(
+        subscriptionDomain.address,
+        subscriptionDomain.abi,
+        biconomy.ethersProvider
+      );
+      setContract(contractInstance);
     })();
   });
 
   const getValue = (formik: any, name: keyof Subscription) => {
-    console.log("click", formik.values.tokenAddress);
     return {
       value: formik.values[name],
       error: formik.errors[name],
@@ -96,9 +99,8 @@ const Dashboard: NextPage = () => {
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const walletAddress = await signer.getAddress();
+    setWallet(walletAddress);
   };
-
-  const startSubscription = async () => {};
 
   return (
     <DashboardTemplate
