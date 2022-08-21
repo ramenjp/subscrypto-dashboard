@@ -1,5 +1,8 @@
 .content {
   padding: 40px 60px;
+}
+
+.top {
   display: flex;
   justify-content: space-between;
 }
@@ -52,4 +55,32 @@
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.about {
+  max-width: 800px;
+  margin-top: 200px;
+  &__title {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+  }
+  &__section {
+    margin-top: 120px;
+  }
+  &__section-title {
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+  }
+  &__section-text {
+    margin-top: 40px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+  }
+  &__highlight {
+    color: #77fba2;
+  }
 }
