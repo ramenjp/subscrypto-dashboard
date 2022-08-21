@@ -15,7 +15,7 @@ const initialValues: Subscription = {
   interval: 0,
   walletAddress: "",
 };
-const biconomyFowarder = 0xfd4973feb2031d4409fb57afee5df2051b171104;
+const biconomyFowarder = "0xfd4973feb2031d4409fb57afee5df2051b171104";
 
 const Dashboard: NextPage = () => {
   const [wallet, setWallet] = React.useState<string>();
