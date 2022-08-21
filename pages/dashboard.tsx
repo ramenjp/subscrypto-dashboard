@@ -7,7 +7,7 @@ import { Subscription } from "../application/subscription";
 import { contractAddress } from "../config";
 import * as Yup from "yup";
 import * as Biconomy from "@biconomy/mexa";
-import * as config from "../application/subscription";
+import * as subscriptionDomain from "../application/subscription";
 
 const initialValues: Subscription = {
   tokenAddress: "",
@@ -15,7 +15,23 @@ const initialValues: Subscription = {
   interval: 0,
   walletAddress: "",
 };
+
 const biconomyFowarder = "0xfd4973feb2031d4409fb57afee5df2051b171104";
+
+const biconomy = new Biconomy.Biconomy(
+  window.ethereum as subscriptionDomain.ExternalProvider,
+  {
+    apiKey: process.env["BICONOMY_API_KEY"] ?? "",
+    debug: true,
+    contractAddresses: ["0x5fbdb2315678afecb367f032d93f642f64180aa3"],
+  }
+);
+
+const contractInstance = new ethers.Contract(
+  subscriptionDomain.address,
+  subscriptionDomain.abi,
+  biconomy.ethersProvider
+);
 
 const Dashboard: NextPage = () => {
   const [wallet, setWallet] = React.useState<string>();
@@ -81,21 +97,6 @@ const Dashboard: NextPage = () => {
     const signer = provider.getSigner();
     const walletAddress = await signer.getAddress();
   };
-
-  const biconomy = new Biconomy.Biconomy(
-    window.ethereum as config.ExternalProvider,
-    {
-      apiKey: process.env["BICONOMY_API_KEY"] ?? "",
-      debug: true,
-      contractAddresses: ["0x5fbdb2315678afecb367f032d93f642f64180aa3"],
-    }
-  );
-
-  const contractInstance = new ethers.Contract(
-    config.address,
-    config.abi,
-    biconomy.ethersProvider
-  );
 
   const startSubscription = async () => {};
 
