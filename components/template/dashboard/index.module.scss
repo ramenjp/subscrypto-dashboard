@@ -39,7 +39,7 @@
 .subtitle {
   margin-top: 16px;
   text-align: center;
-  color: #77fba2;
+  color: #40d470;
   font-size: 32px;
   font-weight: bold;
 }
@@ -51,7 +51,7 @@
   display: inline-block;
   padding: 16px;
   border: 2px solid #f5f5f5;
-  color: #77fba2;
+  color: #40d470;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
@@ -86,7 +86,7 @@
     height: 60px;
     font-weight: bold;
     &-active {
-      background-color: #77fba2;
+      background-color: #40d470;
     }
   }
 }
