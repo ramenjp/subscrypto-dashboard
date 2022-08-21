@@ -22,27 +22,6 @@ const Dashboard: NextPage = () => {
   const [biconomy, setBiconomy] = React.useState<Biconomy>();
   const [contract, setContract] = React.useState<ethers.Contract>();
 
-  const formik = Formik.useFormik<Subscription>({
-    initialValues,
-    onSubmit: async (values) => {
-      await biconomy?.init();
-      console.log("onSubmit");
-      contract?.createFoundation(
-        values.tokenAddress,
-        values.price,
-        values.interval,
-        biconomyFowarder
-      );
-    },
-    validationSchema: () => {
-      return Yup.object().shape({
-        tokenAddress: Yup.string().required("Please select a token"),
-        price: Yup.number(),
-        interval: Yup.number(),
-      });
-    },
-  });
-
   React.useEffect(() => {
     (async () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -55,20 +34,52 @@ const Dashboard: NextPage = () => {
       const biconomy = new Biconomy(
         window.ethereum as subscriptionDomain.ExternalProvider,
         {
-          apiKey: process.env["BICONOMY_API_KEY"] ?? "",
-          debug: true,
+          apiKey: "UKImVu1mg.1b65c436-0524-4989-b99d-1ef74f680d90",
+          debug: false,
           contractAddresses: ["0x5fbdb2315678afecb367f032d93f642f64180aa3"],
         }
       );
-      setBiconomy(biconomy);
 
-      const contractInstance = new ethers.Contract(
+      await biconomy.init();
+
+      var contractInstance = new ethers.Contract(
         subscriptionDomain.address,
         subscriptionDomain.abi,
         biconomy.ethersProvider
       );
+
+      console.log("biconomy.ethersProvider : ", biconomy.ethersProvider);
+      console.log("biconomy : ", biconomy);
+      console.log("contractInstance : ", contractInstance);
+
+      setBiconomy(biconomy);
       setContract(contractInstance);
     })();
+  });
+
+  const formik = Formik.useFormik<Subscription>({
+    initialValues,
+    onSubmit: async (values) => {
+      console.log("onSubmit");
+      console.log("values :", values);
+      console.log("contract :", contract);
+      const amount = ethers.utils.parseUnits(values.price.toString());
+      console.log("amount :", amount);
+      const transaction = await contract?.populateTransaction.createFoundation(
+        values.tokenAddress,
+        values.price,
+        values.interval,
+        biconomyFowarder
+      );
+      console.log("transaction :", transaction);
+    },
+    validationSchema: () => {
+      return Yup.object().shape({
+        tokenAddress: Yup.string().required("Please select a token"),
+        price: Yup.number(),
+        interval: Yup.number(),
+      });
+    },
   });
 
   const getValue = (formik: any, name: keyof Subscription) => {
@@ -79,6 +90,7 @@ const Dashboard: NextPage = () => {
   };
 
   const tokenAddress = React.useMemo(() => {
+    console.log(getValue(formik, "tokenAddress"));
     return getValue(formik, "tokenAddress");
   }, [formik.values.tokenAddress]);
 
@@ -87,6 +99,7 @@ const Dashboard: NextPage = () => {
   }, [formik.values.price]);
 
   const interval = React.useMemo(() => {
+    console.log("interval :", getValue(formik, "interval"));
     return getValue(formik, "interval");
   }, [formik.values.interval]);
 

@@ -3,6 +3,7 @@ import styles from "./index.module.scss";
 
 type Props = {
   text: string;
+  type?: "submit" | "button";
   color?: "primary" | "secondary" | "dark";
 
   onClick?: () => void;
@@ -10,12 +11,13 @@ type Props = {
 
 export const Button: React.FC<Props> = (props) => {
   return (
-    <div
+    <button
       className={`${styles["button"]} ${styles[props.color ?? "primary"]}`}
       onClick={props.onClick}
+      type={props.type}
     >
       <p>{props.text}</p>
-    </div>
+    </button>
   );
 };
 

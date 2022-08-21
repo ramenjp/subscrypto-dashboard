@@ -21,8 +21,8 @@ type Props = {
   price: Field<number>;
   interval: Field<number>;
 
-  handleSubmit: (e: any) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (e: React.ChangeEvent<HTMLFormElement>) => void;
   connectWallet: () => void;
 };
 

@@ -27,7 +27,7 @@ export const ReceiveToken: React.FC<Props> = (props) => {
               type="radio"
               id="tokenAddress"
               name="tokenAddress"
-              value="toke0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56nAddress"
+              value="0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
               onChange={props.handleChange}
               checked={
                 props.tokenAddress.value ===
