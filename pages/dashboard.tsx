@@ -97,6 +97,14 @@ const Dashboard: NextPage = () => {
         "SuccessCreateSubscription"
       ] as any;
 
+      if (successEvent !== undefined) {
+        provider?.once("block", () => {
+          contract?.on(successEvent(), (address: string) => {
+            console.log("address :", address);
+          });
+        });
+      }
+
       console.log("successEvent :", successEvent());
     },
     validationSchema: () => {
