@@ -77,12 +77,12 @@ const Dashboard: NextPage = () => {
       console.log("priceNum :", priceNum());
       console.log("interval :", getInterval());
       console.log("contract :", contract);
-      let { data } = await contract?.populateTransaction.createFoundation(
+      let { data } = (await contract?.populateTransaction.createFoundation(
         values.tokenAddress,
         amount,
         getInterval(),
         biconomyFowarder
-      );
+      )) as any;
       console.log("contract :", contract);
 
       let txParams = {
