@@ -34,12 +34,12 @@ const Dashboard: NextPage = () => {
       const biconomy = new Biconomy(
         window.ethereum as subscriptionDomain.ExternalProvider,
         {
-          apiKey: process.env.NEXT_PUBLIC_BICONOMY_API_KEY || "",
+          apiKey: "vJF9CwK-3.e8cf391f-171a-4933-a2f1-e4d5102882c2",
           debug: false,
-          contractAddresses: ["0x5fbdb2315678afecb367f032d93f642f64180aa3"],
+          contractAddresses: ["0x9eB16414f26A7580Ecf0425d6218D50cc7663B21"],
         }
       );
-
+      console.log("biconomy :", biconomy);
       await biconomy.init();
 
       var contractInstance = new ethers.Contract(
@@ -58,7 +58,6 @@ const Dashboard: NextPage = () => {
       console.log("values :", values);
 
       const amount = ethers.utils.parseUnits(values.price.toString());
-      console.log("amount :", amount);
       const getInterval = () => {
         return values.interval == 0
           ? 1
@@ -71,15 +70,24 @@ const Dashboard: NextPage = () => {
       const priceNum = () => {
         return Number(values.price);
       };
+      console.log("amount :", amount);
       console.log("priceNum :", priceNum());
       console.log("interval :", getInterval());
       const transaction = await contract?.populateTransaction.createFoundation(
         values.tokenAddress,
-        priceNum(),
+        amount,
         getInterval(),
         biconomyFowarder
       );
+      console.log("contract :", contract);
       console.log("transaction :", transaction);
+      // let txParams = {
+      //   data: data,
+      //   to: biconomy?.address,
+      //   from: context.walletAddress,
+      //   signatureType: "EIP712_SIGN",
+      // };
+      // await provider.send("eth_sendTransaction", [txParams]);
     },
     validationSchema: () => {
       return Yup.object().shape({
