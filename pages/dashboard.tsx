@@ -83,8 +83,8 @@ const Dashboard: NextPage = () => {
       let { data } = (await contract.populateTransaction.createFoundation(
         values.tokenAddress,
         amount,
-        getInterval(),
-        biconomyFowarder
+        getInterval()
+        // biconomyFowarder
       )) as any;
       console.log("contract :", contract);
 
