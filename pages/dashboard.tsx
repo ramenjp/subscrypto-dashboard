@@ -15,7 +15,7 @@ const initialValues: Subscription = {
   walletAddress: "",
 };
 
-const biconomyFowarder = "0xfd4973feb2031d4409fb57afee5df2051b171104";
+const biconomyFowarder = "0x61456BF1715C1415730076BB79ae118E806E74d2";
 
 const Dashboard: NextPage = () => {
   const [wallet, setWallet] = React.useState<string>();
@@ -34,7 +34,7 @@ const Dashboard: NextPage = () => {
       const biconomy = new Biconomy(
         window.ethereum as subscriptionDomain.ExternalProvider,
         {
-          apiKey: "UKImVu1mg.1b65c436-0524-4989-b99d-1ef74f680d90",
+          apiKey: process.env.NEXT_PUBLIC_BICONOMY_API_KEY || "",
           debug: false,
           contractAddresses: ["0x5fbdb2315678afecb367f032d93f642f64180aa3"],
         }
@@ -47,11 +47,6 @@ const Dashboard: NextPage = () => {
         subscriptionDomain.abi,
         biconomy.ethersProvider
       );
-
-      console.log("biconomy.ethersProvider : ", biconomy.ethersProvider);
-      console.log("biconomy : ", biconomy);
-      console.log("contractInstance : ", contractInstance);
-
       setBiconomy(biconomy);
       setContract(contractInstance);
     })();
@@ -60,15 +55,28 @@ const Dashboard: NextPage = () => {
   const formik = Formik.useFormik<Subscription>({
     initialValues,
     onSubmit: async (values) => {
-      console.log("onSubmit");
       console.log("values :", values);
-      console.log("contract :", contract);
+
       const amount = ethers.utils.parseUnits(values.price.toString());
       console.log("amount :", amount);
+      const getInterval = () => {
+        return values.interval == 0
+          ? 1
+          : values.interval == 50
+          ? 7
+          : values.interval == 100
+          ? 30
+          : null;
+      };
+      const priceNum = () => {
+        return Number(values.price);
+      };
+      console.log("priceNum :", priceNum());
+      console.log("interval :", getInterval());
       const transaction = await contract?.populateTransaction.createFoundation(
         values.tokenAddress,
-        values.price,
-        values.interval,
+        priceNum(),
+        getInterval(),
         biconomyFowarder
       );
       console.log("transaction :", transaction);
