@@ -92,6 +92,12 @@ const Dashboard: NextPage = () => {
         signatureType: "EIP712_SIGN",
       };
       await provider?.send("eth_sendTransaction", [txParams]);
+
+      const successEvent = contract?.filters[
+        "SuccessCreateSubscription"
+      ] as any;
+
+      console.log("successEvent :", successEvent());
     },
     validationSchema: () => {
       return Yup.object().shape({
