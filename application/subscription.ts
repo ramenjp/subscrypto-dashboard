@@ -21,7 +21,7 @@ export type ExternalProvider = {
   request?: (request: { method: string; params?: Array<any> }) => Promise<any>;
 };
 
-export const address = "0x9eB16414f26A7580Ecf0425d6218D50cc7663B21";
+export const address = "0x3d07d73b3991E1aE0A212bdA7cfC39c37F6C2dEC";
 
 export const abi = [
   {

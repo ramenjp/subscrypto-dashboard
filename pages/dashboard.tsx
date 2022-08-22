@@ -105,6 +105,11 @@ const Dashboard: NextPage = () => {
         });
       }
 
+      contract?.on("txMined", (data) => {
+        const registerReceipt = data.receipt;
+        console.log("registerReceipt :", registerReceipt);
+      });
+
       console.log("successEvent :", successEvent());
     },
     validationSchema: () => {
