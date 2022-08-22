@@ -19,6 +19,8 @@ const biconomyFowarder = "0x61456BF1715C1415730076BB79ae118E806E74d2";
 
 const Dashboard: NextPage = () => {
   const [wallet, setWallet] = React.useState<string>();
+  const [provider, setProvider] =
+    React.useState<ethers.providers.Web3Provider>();
   const [biconomy, setBiconomy] = React.useState<Biconomy>();
   const [contract, setContract] = React.useState<ethers.Contract>();
 
@@ -39,7 +41,7 @@ const Dashboard: NextPage = () => {
           contractAddresses: ["0x9eB16414f26A7580Ecf0425d6218D50cc7663B21"],
         }
       );
-      console.log("biconomy :", biconomy);
+
       await biconomy.init();
 
       var contractInstance = new ethers.Contract(
@@ -47,6 +49,7 @@ const Dashboard: NextPage = () => {
         subscriptionDomain.abi,
         biconomy.ethersProvider
       );
+
       setBiconomy(biconomy);
       setContract(contractInstance);
     })();
@@ -73,21 +76,22 @@ const Dashboard: NextPage = () => {
       console.log("amount :", amount);
       console.log("priceNum :", priceNum());
       console.log("interval :", getInterval());
-      const transaction = await contract?.populateTransaction.createFoundation(
+      console.log("contract :", contract);
+      let { data } = await contract?.populateTransaction.createFoundation(
         values.tokenAddress,
         amount,
         getInterval(),
         biconomyFowarder
       );
       console.log("contract :", contract);
-      console.log("transaction :", transaction);
-      // let txParams = {
-      //   data: data,
-      //   to: biconomy?.address,
-      //   from: context.walletAddress,
-      //   signatureType: "EIP712_SIGN",
-      // };
-      // await provider.send("eth_sendTransaction", [txParams]);
+
+      let txParams = {
+        data: data,
+        to: subscriptionDomain.address,
+        from: wallet,
+        signatureType: "EIP712_SIGN",
+      };
+      await provider?.send("eth_sendTransaction", [txParams]);
     },
     validationSchema: () => {
       return Yup.object().shape({
@@ -128,6 +132,7 @@ const Dashboard: NextPage = () => {
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const walletAddress = await signer.getAddress();
+    setProvider(provider);
     setWallet(walletAddress);
   };
 
