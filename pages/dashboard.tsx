@@ -22,38 +22,36 @@ const Dashboard: NextPage = () => {
   const [provider, setProvider] =
     React.useState<ethers.providers.Web3Provider>();
   const [biconomy, setBiconomy] = React.useState<Biconomy>();
-  const [contract, setContract] = React.useState<ethers.Contract>();
+  // const [contract, setContract] = React.useState<ethers.Contract>();
 
   React.useEffect(() => {
+    console.log("aaaaaaa");
     (async () => {
+      console.log("aaaaaaa!!!!!!!!!");
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
+      console.log(provider);
+      setProvider(provider);
+
+      const acccounts = await provider.send("eth_requestAccounts", []);
+      if (acccounts.length > 0) {
+        console.log(acccounts[0]);
+      }
       const signer = provider.getSigner();
       const wallet = await signer.getAddress();
       if (wallet) {
         setWallet(wallet);
       }
-      const biconomy = new Biconomy(
-        window.ethereum as subscriptionDomain.ExternalProvider,
-        {
-          apiKey: "vJF9CwK-3.e8cf391f-171a-4933-a2f1-e4d5102882c2",
-          debug: false,
-          contractAddresses: ["0x9eB16414f26A7580Ecf0425d6218D50cc7663B21"],
-        }
-      );
+
+      const biconomy = new Biconomy(window.ethereum, {
+        apiKey: "lUqqvXMRk.fae96f40-a5de-4286-8599-d9d81b591c50",
+        debug: true,
+        contractAddresses: ["0x3d07d73b3991e1ae0a212bda7cfc39c37f6c2dec"],
+      });
 
       await biconomy.init();
-
-      var contractInstance = new ethers.Contract(
-        subscriptionDomain.address,
-        subscriptionDomain.abi,
-        biconomy.ethersProvider
-      );
-
       setBiconomy(biconomy);
-      setContract(contractInstance);
     })();
-  });
+  }, []);
 
   const formik = Formik.useFormik<Subscription>({
     initialValues,
@@ -76,8 +74,13 @@ const Dashboard: NextPage = () => {
       console.log("amount :", amount);
       console.log("priceNum :", priceNum());
       console.log("interval :", getInterval());
-      console.log("contract :", contract);
-      let { data } = (await contract?.populateTransaction.createFoundation(
+      // console.log("contract :", contract);
+      var contract = new ethers.Contract(
+        subscriptionDomain.address,
+        subscriptionDomain.abi,
+        biconomy!.ethersProvider
+      );
+      let { data } = (await contract.populateTransaction.createFoundation(
         values.tokenAddress,
         amount,
         getInterval(),
@@ -88,11 +91,16 @@ const Dashboard: NextPage = () => {
       let txParams = {
         data: data,
         to: subscriptionDomain.address,
-        from: wallet,
+        from: wallet!,
         signatureType: "EIP712_SIGN",
       };
-      await provider?.send("eth_sendTransaction", [txParams]);
 
+      // 型情報と実装があっていない...
+      const biconomyProvider = (await biconomy!.provider) as any;
+
+      // 本来はここでmetamask開いてsignする。
+      const tx = await biconomyProvider.send("eth_sendTransaction", [txParams]);
+      console.log(tx);
       const successEvent = contract?.filters[
         "SuccessCreateSubscription"
       ] as any;
@@ -105,7 +113,7 @@ const Dashboard: NextPage = () => {
         });
       }
 
-      contract?.on("txMined", (data) => {
+      biconomy!.on("txMined", (data) => {
         const registerReceipt = data.receipt;
         console.log("registerReceipt :", registerReceipt);
       });
@@ -151,6 +159,7 @@ const Dashboard: NextPage = () => {
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const walletAddress = await signer.getAddress();
+    console.log(provider);
     setProvider(provider);
     setWallet(walletAddress);
   };
