@@ -1,3 +1,4 @@
+import * as React from "react";
 import styles from "./index.module.scss";
 import Button from "../../atoms/button";
 import { getDisplayName } from "next/dist/shared/lib/utils";
@@ -14,7 +15,9 @@ type Props = {
 };
 
 export const Period: React.FC<Props> = (props) => {
+  const [isRange, setIsRange] = React.useState<boolean>(false);
   const getSpan = () => {
+    if (!isRange) return "week";
     return props.interval?.value == 0
       ? "day"
       : props.interval?.value == 50
@@ -39,7 +42,10 @@ export const Period: React.FC<Props> = (props) => {
           min="0"
           max="100"
           className={styles["range-content__range"]}
-          onChange={props.handleChange}
+          onChange={(e) => {
+            setIsRange(true);
+            props.handleChange(e);
+          }}
         />
       </div>
 
