@@ -8,7 +8,9 @@ type Field<T> = {
 };
 
 type Props = {
+  token: number;
   tokenAddress: Field<string>;
+  setToken: (num: number) => void;
   setProgress: (progressNum: number) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -22,13 +24,20 @@ export const ReceiveToken: React.FC<Props> = (props) => {
       <div className={styles["text"]}>select more than one.</div>
       <div className={styles["token"]}>
         <label>
-          <div className={styles["token__box"]}>
+          <div
+            className={`${styles["token__box"]} ${
+              props.token == 1 && styles["active"]
+            }`}
+          >
             <input
               type="radio"
               id="tokenAddress"
               name="tokenAddress"
-              value="toke0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56nAddress"
-              onChange={props.handleChange}
+              value="0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
+              onChange={() => {
+                props.setToken(1);
+                props.handleChange;
+              }}
               checked={
                 props.tokenAddress.value ===
                 "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
@@ -40,16 +49,23 @@ export const ReceiveToken: React.FC<Props> = (props) => {
         </label>
 
         <label>
-          <div className={styles["token__box"]}>
+          <div
+            className={`${styles["token__box"]} ${
+              props.token == 2 && styles["active"]
+            }`}
+          >
             <input
               type="radio"
               id="tokenAddress"
               name="tokenAddress"
-              value="0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
-              onChange={props.handleChange}
+              value="0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747"
+              onChange={() => {
+                props.setToken(2);
+                props.handleChange;
+              }}
               checked={
                 props.tokenAddress.value ===
-                "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
+                "0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747"
               }
             />
             <Image src="/img/USDC.png" width="82" height="82" />
@@ -58,13 +74,20 @@ export const ReceiveToken: React.FC<Props> = (props) => {
         </label>
 
         <label>
-          <div className={styles["token__box"]}>
+          <div
+            className={`${styles["token__box"]} ${
+              props.token == 3 && styles["active"]
+            }`}
+          >
             <input
               type="radio"
               id="tokenAddress"
               name="tokenAddress"
               value="USDT"
-              onChange={props.handleChange}
+              onChange={() => {
+                props.setToken(3);
+                props.handleChange;
+              }}
               checked={props.tokenAddress.value === "USDT"}
             />
             <Image src="/img/USDT.png" width="82" height="82" />
@@ -73,13 +96,20 @@ export const ReceiveToken: React.FC<Props> = (props) => {
         </label>
 
         <label>
-          <div className={styles["token__box"]}>
+          <div
+            className={`${styles["token__box"]} ${
+              props.token == 4 && styles["active"]
+            }`}
+          >
             <input
               type="radio"
               id="tokenAddress"
               name="tokenAddress"
               value="DAI"
-              onChange={props.handleChange}
+              onChange={() => {
+                props.setToken(4);
+                props.handleChange;
+              }}
               checked={props.tokenAddress.value === "DAI"}
             />
             <Image src="/img/DAI.png" width="82" height="82" />

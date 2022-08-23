@@ -21,13 +21,14 @@ type Props = {
   price: Field<number>;
   interval: Field<number>;
 
-  handleSubmit: (e: any) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (e: React.ChangeEvent<HTMLFormElement>) => void;
   connectWallet: () => void;
 };
 
 export const Dashboard: React.FC<Props> = (props) => {
   const [progress, setProgress] = React.useState<number>(1);
+  const [token, setToken] = React.useState<number>(0);
   return (
     <div className={styles["content"]}>
       {props.wallet ? (
@@ -87,6 +88,8 @@ export const Dashboard: React.FC<Props> = (props) => {
               {progress == 1 ? (
                 <ReceiveToken
                   tokenAddress={props.tokenAddress}
+                  setToken={setToken}
+                  token={token}
                   setProgress={setProgress}
                   handleChange={props.handleChange}
                 />

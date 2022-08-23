@@ -4,8 +4,9 @@ import { Dashboard as DashboardTemplate } from "../components/template/dashboard
 import { ethers } from "ethers";
 import * as Formik from "formik";
 import { Subscription } from "../application/subscription";
-import { contractAddress } from "../config";
 import * as Yup from "yup";
+import { Biconomy } from "@biconomy/mexa";
+import * as subscriptionDomain from "../application/subscription";
 
 const initialValues: Subscription = {
   tokenAddress: "",
@@ -14,12 +15,105 @@ const initialValues: Subscription = {
   walletAddress: "",
 };
 
+// const biconomyFowarder = "0x61456BF1715C1415730076BB79ae118E806E74d2";
+
 const Dashboard: NextPage = () => {
   const [wallet, setWallet] = React.useState<string>();
+  const [provider, setProvider] =
+    React.useState<ethers.providers.Web3Provider>();
+  const [biconomy, setBiconomy] = React.useState<Biconomy>();
+  // const [contract, setContract] = React.useState<ethers.Contract>();
+
+  React.useEffect(() => {
+    (async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      setProvider(provider);
+      const acccounts = await provider.send("eth_requestAccounts", []);
+      if (acccounts.length > 0) {
+        console.log(acccounts[0]);
+      }
+      const signer = provider.getSigner();
+      const wallet = await signer.getAddress();
+      if (wallet) {
+        setWallet(wallet);
+      }
+
+      const biconomy = new Biconomy(window.ethereum, {
+        apiKey: "rvOIiam72.b30e9999-4189-4bad-8142-0550531378e7",
+        debug: true,
+        contractAddresses: [subscriptionDomain.address],
+      });
+
+      await biconomy.init();
+      setBiconomy(biconomy);
+    })();
+  }, []);
+
   const formik = Formik.useFormik<Subscription>({
     initialValues,
     onSubmit: async (values) => {
-      // contractAddress.createSubscription(value);
+      console.log("values :", values);
+
+      const amount = ethers.utils.parseUnits(values.price.toString());
+      const getInterval = () => {
+        return values.interval == 0
+          ? 1
+          : values.interval == 50
+          ? 7
+          : values.interval == 100
+          ? 30
+          : null;
+      };
+      const priceNum = () => {
+        return Number(values.price);
+      };
+      console.log("amount :", amount);
+      console.log("priceNum :", priceNum());
+      console.log("interval :", getInterval());
+      // console.log("contract :", contract);
+
+      var contract = new ethers.Contract(
+        subscriptionDomain.address,
+        subscriptionDomain.abi,
+        biconomy!.ethersProvider
+      );
+      let { data } = (await contract.populateTransaction.createFoundation(
+        values.tokenAddress,
+        amount,
+        getInterval()
+      )) as any;
+      console.log("contract :", contract);
+
+      let txParams = {
+        data: data,
+        to: subscriptionDomain.address,
+        from: wallet!,
+        signatureType: "EIP712_SIGN",
+      };
+
+      // 型情報と実装があっていない...
+      const biconomyProvider = (await biconomy!.provider) as any;
+
+      const tx = await biconomyProvider.send("eth_sendTransaction", [txParams]);
+      console.log(tx);
+      const successEvent = contract?.filters[
+        "SuccessCreateSubscription"
+      ] as any;
+
+      if (successEvent !== undefined) {
+        provider?.once("block", () => {
+          contract?.on(successEvent(), (address: string) => {
+            console.log("address :", address);
+          });
+        });
+      }
+
+      biconomy!.on("txMined", (data) => {
+        const registerReceipt = data.receipt;
+        console.log("registerReceipt :", registerReceipt);
+      });
+
+      console.log("successEvent :", successEvent());
     },
     validationSchema: () => {
       return Yup.object().shape({
@@ -30,20 +124,7 @@ const Dashboard: NextPage = () => {
     },
   });
 
-  React.useEffect(() => {
-    (async () => {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
-      const signer = provider.getSigner();
-      const wallet = await signer.getAddress();
-      if (wallet) {
-        setWallet(wallet);
-      }
-    })();
-  });
-
   const getValue = (formik: any, name: keyof Subscription) => {
-    console.log("click", formik.values.tokenAddress);
     return {
       value: formik.values[name],
       error: formik.errors[name],
@@ -51,6 +132,7 @@ const Dashboard: NextPage = () => {
   };
 
   const tokenAddress = React.useMemo(() => {
+    console.log(getValue(formik, "tokenAddress"));
     return getValue(formik, "tokenAddress");
   }, [formik.values.tokenAddress]);
 
@@ -59,6 +141,7 @@ const Dashboard: NextPage = () => {
   }, [formik.values.price]);
 
   const interval = React.useMemo(() => {
+    console.log("interval :", getValue(formik, "interval"));
     return getValue(formik, "interval");
   }, [formik.values.interval]);
 
@@ -71,6 +154,9 @@ const Dashboard: NextPage = () => {
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const walletAddress = await signer.getAddress();
+    console.log(provider);
+    setProvider(provider);
+    setWallet(walletAddress);
   };
 
   return (

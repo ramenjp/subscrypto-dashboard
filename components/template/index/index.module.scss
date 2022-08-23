@@ -1,11 +1,14 @@
 .content {
   padding: 40px 60px;
+}
+
+.top {
   display: flex;
   justify-content: space-between;
 }
 
 .title {
-  color: #77fba2;
+  color: #40d470;
   font-size: 64px;
   font-weight: bold;
 }
@@ -35,11 +38,15 @@
   margin-left: 40px;
   display: inline-block;
   padding: 16px;
-  border: 2px solid #77fba2;
-  color: #77fba2;
+  border: 2px solid #40d470;
+  color: #40d470;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+  &:hover {
+    transition: 0.2s;
+    background-color: rgb(34, 33, 33);
+  }
 }
 
 .button-secondary {
@@ -48,8 +55,40 @@
   display: inline-block;
   padding: 16px;
   color: #333333;
-  background-color: #77fba2;
+  background-color: #40d470;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+  &:hover {
+    transition: 0.2s;
+    background-color: #37b960;
+  }
+}
+
+.about {
+  max-width: 800px;
+  margin-top: 200px;
+  &__title {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+  }
+  &__section {
+    margin-top: 120px;
+  }
+  &__section-title {
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+  }
+  &__section-text {
+    margin-top: 40px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+  }
+  &__highlight {
+    color: #40d470;
+  }
 }

@@ -8,9 +8,10 @@ type Field<T> = {
 
 type Props = {
   tokenReceiveAddress: Field<string>;
+
   setProgress: (progressNum: number) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (e: HTMLElement) => void;
+  handleSubmit: (e: React.ChangeEvent<HTMLFormElement>) => void;
 };
 
 export const ReceiveAddress: React.FC<Props> = (props) => {
@@ -33,11 +34,9 @@ export const ReceiveAddress: React.FC<Props> = (props) => {
           />
         </div>
         <div className={styles["button"]}>
-          <Button
-            text="Confirm"
-            color="secondary"
-            onClick={() => props.handleSubmit}
-          />
+          <form onSubmit={props.handleSubmit}>
+            <Button type="submit" text="Confirm" color="secondary" />
+          </form>
         </div>
       </div>
     </div>
