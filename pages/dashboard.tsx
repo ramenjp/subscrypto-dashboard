@@ -15,7 +15,7 @@ const initialValues: Subscription = {
   walletAddress: "",
 };
 
-const biconomyFowarder = "0x61456BF1715C1415730076BB79ae118E806E74d2";
+// const biconomyFowarder = "0x61456BF1715C1415730076BB79ae118E806E74d2";
 
 const Dashboard: NextPage = () => {
   const [wallet, setWallet] = React.useState<string>();
@@ -25,13 +25,9 @@ const Dashboard: NextPage = () => {
   // const [contract, setContract] = React.useState<ethers.Contract>();
 
   React.useEffect(() => {
-    console.log("aaaaaaa");
     (async () => {
-      console.log("aaaaaaa!!!!!!!!!");
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      console.log(provider);
       setProvider(provider);
-
       const acccounts = await provider.send("eth_requestAccounts", []);
       if (acccounts.length > 0) {
         console.log(acccounts[0]);
@@ -43,9 +39,9 @@ const Dashboard: NextPage = () => {
       }
 
       const biconomy = new Biconomy(window.ethereum, {
-        apiKey: "lUqqvXMRk.fae96f40-a5de-4286-8599-d9d81b591c50",
+        apiKey: "rvOIiam72.b30e9999-4189-4bad-8142-0550531378e7",
         debug: true,
-        contractAddresses: ["0x3d07d73b3991e1ae0a212bda7cfc39c37f6c2dec"],
+        contractAddresses: [subscriptionDomain.address],
       });
 
       await biconomy.init();
@@ -75,6 +71,7 @@ const Dashboard: NextPage = () => {
       console.log("priceNum :", priceNum());
       console.log("interval :", getInterval());
       // console.log("contract :", contract);
+
       var contract = new ethers.Contract(
         subscriptionDomain.address,
         subscriptionDomain.abi,
@@ -84,7 +81,6 @@ const Dashboard: NextPage = () => {
         values.tokenAddress,
         amount,
         getInterval()
-        // biconomyFowarder
       )) as any;
       console.log("contract :", contract);
 
@@ -98,7 +94,6 @@ const Dashboard: NextPage = () => {
       // 型情報と実装があっていない...
       const biconomyProvider = (await biconomy!.provider) as any;
 
-      // 本来はここでmetamask開いてsignする。
       const tx = await biconomyProvider.send("eth_sendTransaction", [txParams]);
       console.log(tx);
       const successEvent = contract?.filters[
