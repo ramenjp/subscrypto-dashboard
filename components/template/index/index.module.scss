@@ -66,11 +66,11 @@
 }
 
 .about {
-  max-width: 800px;
+  max-width: 1200px;
   margin-top: 200px;
   &__title {
     color: white;
-    font-size: 64px;
+    font-size: 84px;
     font-weight: bold;
   }
   &__section {
@@ -78,18 +78,19 @@
   }
   &__section-title {
     color: white;
-    font-size: 48px;
+    font-size: 36px;
     font-weight: bold;
     line-height: 48px;
   }
   &__section-text {
     margin-top: 40px;
     color: white;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
     line-height: 32px;
   }
   &__highlight {
     color: #40d470;
+    line-height: 32px;
   }
 }
