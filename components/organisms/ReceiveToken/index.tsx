@@ -45,11 +45,11 @@ export const ReceiveToken: React.FC<Props> = (props) => {
               type="radio"
               id="tokenAddress"
               name="tokenAddress"
-              value="0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
+              value="0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747"
               onChange={props.handleChange}
               checked={
                 props.tokenAddress.value ===
-                "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
+                "0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747"
               }
             />
             <Image src="/img/USDC.png" width="82" height="82" />

@@ -43,6 +43,10 @@
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+  &:hover {
+    transition: 0.2s;
+    background-color: rgb(34, 33, 33);
+  }
 }
 
 .button-secondary {
@@ -55,6 +59,10 @@
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+  &:hover {
+    transition: 0.2s;
+    background-color: #37b960;
+  }
 }
 
 .about {
