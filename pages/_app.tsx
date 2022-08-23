@@ -18,10 +18,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     setPathName(router.pathname);
+    console.log("pathname :", router.pathname);
   }, [router.pathname]);
   return (
     <>
-      {!(pathName === "demo") ?? <Header pathName={pathName} />}
+      {!(pathName === "/demo") && <Header pathName={pathName} />}
       <Component {...pageProps} />;
     </>
   );
