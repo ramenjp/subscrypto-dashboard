@@ -51,6 +51,24 @@ const Home: NextPage = () => {
 
     const subscribeTx = await subscriptionContract.subscribe();
   };
-  return <DemoTemplate connectWallet={connectWallet} onClick={onClick} />;
+  const cancelSubscription = async (address: string) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = await provider.getSigner();
+
+    const subscriptionContract = await new ethers.Contract(
+      contractAddress,
+      abi,
+      signer
+    );
+    await subscriptionContract.cancelSubscription(address);
+  };
+
+  return (
+    <DemoTemplate
+      connectWallet={connectWallet}
+      onClick={onClick}
+      cancelSubscription={cancelSubscription}
+    />
+  );
 };
 export default Home;
