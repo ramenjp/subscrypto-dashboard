@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.pathname]);
   return (
     <>
-      <Header pathName={pathName} />
+      {!(pathName === "demo") ?? <Header pathName={pathName} />}
       <Component {...pageProps} />;
     </>
   );

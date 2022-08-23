@@ -11,7 +11,7 @@ type Props = {
 export const Demo: React.FC<Props> = (props) => {
   return (
     <div className={styles["content"]}>
-      <div className={styles["title"]}>User Demo Page</div>
+      <div className={styles["title"]}>Music Subscription Service</div>
       <Button onClick={props.onClick} text="Start Subscribe!"></Button>
       <div className={styles["button"]}>
         <Button
