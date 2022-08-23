@@ -8,6 +8,7 @@ type Field<T> = {
 
 type Props = {
   tokenReceiveAddress: Field<string>;
+
   setProgress: (progressNum: number) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.ChangeEvent<HTMLFormElement>) => void;
