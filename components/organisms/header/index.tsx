@@ -19,8 +19,9 @@ export const Header: React.FC<Props> = (props) => {
   return (
     <div className={styles["content"]}>
       <Link href="/">
-        <div className={styles["title"]}>SUBCRYPTO</div>
+        <div className={styles["title"]}>SUBSCRYPTO</div>
       </Link>
+
       <div className={styles["content__right"]}>
         <ul className={styles["content__list"]}>
           <Link href="/">
