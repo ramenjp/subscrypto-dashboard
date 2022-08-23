@@ -34,9 +34,9 @@ export const ReceiveToken: React.FC<Props> = (props) => {
               id="tokenAddress"
               name="tokenAddress"
               value="0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
-              onChange={() => {
+              onChange={(e) => {
                 props.setToken(1);
-                props.handleChange;
+                props.handleChange(e);
               }}
               checked={
                 props.tokenAddress.value ===
@@ -59,9 +59,9 @@ export const ReceiveToken: React.FC<Props> = (props) => {
               id="tokenAddress"
               name="tokenAddress"
               value="0xe6b8a5CF854791412c1f6EFC7CAf629f5Df1c747"
-              onChange={() => {
+              onChange={(e) => {
                 props.setToken(2);
-                props.handleChange;
+                props.handleChange(e);
               }}
               checked={
                 props.tokenAddress.value ===
@@ -84,9 +84,9 @@ export const ReceiveToken: React.FC<Props> = (props) => {
               id="tokenAddress"
               name="tokenAddress"
               value="USDT"
-              onChange={() => {
+              onChange={(e) => {
                 props.setToken(3);
-                props.handleChange;
+                props.handleChange(e);
               }}
               checked={props.tokenAddress.value === "USDT"}
             />
@@ -106,9 +106,9 @@ export const ReceiveToken: React.FC<Props> = (props) => {
               id="tokenAddress"
               name="tokenAddress"
               value="DAI"
-              onChange={() => {
+              onChange={(e) => {
                 props.setToken(4);
-                props.handleChange;
+                props.handleChange(e);
               }}
               checked={props.tokenAddress.value === "DAI"}
             />

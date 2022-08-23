@@ -7,6 +7,7 @@ import { Subscription } from "../application/subscription";
 import * as Yup from "yup";
 import { Biconomy } from "@biconomy/mexa";
 import * as subscriptionDomain from "../application/subscription";
+import { useRouter } from "next/router";
 
 const initialValues: Subscription = {
   tokenAddress: "",
@@ -23,7 +24,11 @@ const Dashboard: NextPage = () => {
     React.useState<ethers.providers.Web3Provider>();
   const [biconomy, setBiconomy] = React.useState<Biconomy>();
   // const [contract, setContract] = React.useState<ethers.Contract>();
+  const router = useRouter();
 
+  const goToSuccess = (address: string) => {
+    router.push(`/success?address=${address}`, undefined, { shallow: true });
+  };
   React.useEffect(() => {
     (async () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -104,6 +109,7 @@ const Dashboard: NextPage = () => {
         provider?.once("block", () => {
           contract?.on(successEvent(), (address: string) => {
             console.log("address :", address);
+            goToSuccess(address);
           });
         });
       }
