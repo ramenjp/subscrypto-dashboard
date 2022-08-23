@@ -13,7 +13,9 @@ export const Header: React.FC<Props> = (props) => {
   React.useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    setIsSigner(!!signer);
+    console.log("header provider :", provider);
+    console.log("header signer :", signer);
+    setIsSigner(!!signer._address);
   }, []);
 
   return (

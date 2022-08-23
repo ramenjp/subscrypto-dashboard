@@ -49,7 +49,9 @@ const Dashboard: NextPage = () => {
         contractAddresses: [subscriptionDomain.address],
       });
 
+      console.log("biconomy :", biconomy);
       await biconomy.init();
+
       setBiconomy(biconomy);
     })();
   }, []);
@@ -62,7 +64,7 @@ const Dashboard: NextPage = () => {
       const amount = ethers.utils.parseUnits(values.price.toString());
       const getInterval = () => {
         return values.interval == 0
-          ? 1
+          ? 60 * 1 //1分
           : values.interval == 50
           ? 7
           : values.interval == 100
@@ -75,18 +77,23 @@ const Dashboard: NextPage = () => {
       console.log("amount :", amount);
       console.log("priceNum :", priceNum());
       console.log("interval :", getInterval());
-      // console.log("contract :", contract);
+      console.log("provider :", provider);
 
+      console.log("biconomy", biconomy);
       var contract = new ethers.Contract(
         subscriptionDomain.address,
         subscriptionDomain.abi,
         biconomy!.ethersProvider
       );
+
+      console.log("contract :", contract);
+
       let { data } = (await contract.populateTransaction.createFoundation(
         values.tokenAddress,
         amount,
         getInterval()
       )) as any;
+
       console.log("contract :", contract);
 
       let txParams = {
@@ -98,9 +105,10 @@ const Dashboard: NextPage = () => {
 
       // 型情報と実装があっていない...
       const biconomyProvider = (await biconomy!.provider) as any;
-
+      console.log("biconomyProvider :", biconomyProvider);
       const tx = await biconomyProvider.send("eth_sendTransaction", [txParams]);
       console.log(tx);
+
       const successEvent = contract?.filters[
         "SuccessCreateSubscription"
       ] as any;
