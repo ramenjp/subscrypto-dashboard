@@ -49,8 +49,9 @@ const Dashboard: NextPage = () => {
         contractAddresses: [subscriptionDomain.address],
       });
 
-      console.log("biconomy :", biconomy);
+      console.log("biconomy1 :", biconomy);
       await biconomy.init();
+      console.log("biconomy2 :", biconomy);
 
       setBiconomy(biconomy);
     })();
@@ -89,9 +90,11 @@ const Dashboard: NextPage = () => {
       console.log("contract :", contract);
 
       let { data } = (await contract.populateTransaction.createFoundation(
-        values.tokenAddress,
+        // values.tokenAddress,
+        "0xe11A86849d99F524cAC3E7A0Ec1241828e332C62",
         amount,
-        getInterval()
+        // getInterval(),
+        60 * 2
       )) as any;
 
       console.log("contract :", contract);
