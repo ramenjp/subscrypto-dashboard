@@ -36,28 +36,32 @@ export const Home: React.FC<Props> = (props) => {
         <div className={styles["about__title"]}>Web3 Subscription Protocol</div>
         <div className={styles["about__section"]}>
           <div className={styles["about__section-title"]}>
-            ビジネスモデルに合わせて、最適な Income Flow を設計できる。
+            We Help Enterprises Shorten the Collection Period for trade accounts
+            receivable can be compressed
           </div>
           <div className={styles["about__section-text"]}>
-            クレジットカード会社に決済を代行していたこれまでのサブスクリプションモデルでは、売上債権回転期間の短縮に限界があった。
-            <span className={styles["about__highlight"]}>
-              SUBSCRYPTOは、売上債権回転期間を日単位まで圧縮することによってキャッシュフローを改善する。
-            </span>
-            更にあなたがホテルのサブスクリプションを提供している事業者なのか、音楽配信を提供している事業者なのかによって、望むキャッシュフローは異なるはずだ。
-            <span className={styles["about__highlight"]}>
-              SUBSCRYPTOを用いれば、サブスクリプションの期間（例えば毎日でも）と単価を柔軟に設定できるため、ビジネスモデルにあわせてキャッシュフローを最適化することができる。
-            </span>
+            Most subscription models relies on third party payment system that
+            as payment agents, which have limited chance to shorten the
+            receivables turnover period.
+            <div className={styles["about__highlight"]}>
+              SUBSCRYPTO improves enterprise cash flow by decreasing the
+              receivables turnover period.
+            </div>
           </div>
         </div>
         <div className={styles["about__section"]}>
           <div className={styles["about__section-title"]}>
-            顧客のロイヤリティに合わせて、スムーズにRewardを提供できる。
+            With SDK, enterprise can easily set up any subscription plan that
+            best fits their business model perfectly
           </div>
           <div className={styles["about__section-text"]}>
-            サブスクリプションの加入期間に応じて、ユーザーにRewardを提供することができる。最適なタイミングでRewardを与えることは、Recurring
-            rateを低下させ、LTVを最大化することに繋がるだろう。従来のサブスクリプションビジネスでは、売上の多くの割合をマーケティングFeeに当てていた。SUBSCRYPTOを用いて、例えば半年間加入してくれたユーザーにRewardとしてCoolな
-            NFTを提供すれば、彼らがバイラルでマーケティングを行ってくれることにより、マーケティングFee
-            の圧縮も期待できる。
+            The cash flow cycle differs depending on enterprise’s business
+            domains.
+            <div className={styles["about__highlight"]}>
+              With SUBSCRYPTO, the subscription period (even on a daily basis)
+              and unit price can be flexibly set, which optimizes the cash flow
+              cycle to suit any business model.
+            </div>
           </div>
         </div>
       </div>

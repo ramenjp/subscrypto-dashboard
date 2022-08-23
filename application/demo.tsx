@@ -1,3 +1,5 @@
+export const contractAddress = "0xf8f9a522d43d77Ab7E1c44cECBB296BCD17e14DD";
+
 export const abi = [
   {
     inputs: [
@@ -275,3 +277,5 @@ export const abi = [
     type: "function",
   },
 ];
+
+export const erc20Abi = [];
